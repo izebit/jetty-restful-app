@@ -12,8 +12,17 @@ repositories {
     }
 }
 
+test {
+    useJUnitPlatform()
+}
+
 dependencies {
+    implementation "org.eclipse.jetty:jetty-server:9.4.21.v20190926"
+    implementation "org.eclipse.jetty:jetty-servlet:9.4.21.v20190926"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
 }
 
 compileKotlin {
