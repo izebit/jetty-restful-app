@@ -17,10 +17,12 @@ class AccountServiceImpl<K : Comparable<K>> constructor(
             return true;
 
         return transactionService.startTransaction(from, to, {
-            val sender = requireNotNull(get(from)) { "sender account with id:${from} doesn't exist" }
-            val recipient = requireNotNull(get(to)) { "recipient account with id:${to} doesn't exist" }
+            val sender = get(from) ?: throw AccountServiceException("sender account with id:${from} doesn't exist")
+            val recipient = get(to) ?: throw AccountServiceException("recipient account with id:${to} doesn't exist")
             sender.money -= amount
-            require(sender.money > 0) { "account with id: ${sender.id} doesn't have enough money" }
+            if (sender.money > 0)
+                throw AccountServiceException("account with id: ${sender.id} doesn't have enough money")
+
             recipient.money += amount
 
             save(sender)
