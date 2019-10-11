@@ -27,7 +27,7 @@ interface AccountService<K : Comparable<K>> {
      * transfers money from an account to another one
      * @param from - account id, which money will be withdrawn from
      * @param to - account id, which money will come to
-     * @param amount - amount of money, it could be either less zero, zero or greater than zero
+     * @param amount - amount of money, it can be only positive
      * @return true if an operation is successful, otherwise false
      */
     fun transfer(from: K, to: K, amount: Long): Boolean
