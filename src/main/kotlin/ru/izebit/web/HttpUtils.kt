@@ -1,4 +1,4 @@
-package ru.izebit.presentation
+package ru.izebit.web
 
 import javax.servlet.http.HttpServletResponse
 

@@ -1,9 +1,9 @@
-package ru.izebit.presentation
+package ru.izebit.web
 
 import com.beust.klaxon.Klaxon
-import ru.izebit.presentation.HttpUtils.of
 import ru.izebit.service.AccountService
 import ru.izebit.service.AccountServiceException
+import ru.izebit.web.HttpUtils.of
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
