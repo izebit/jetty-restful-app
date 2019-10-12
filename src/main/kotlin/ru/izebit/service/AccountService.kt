@@ -1,7 +1,6 @@
 package ru.izebit.service
 
 import ru.izebit.data.Account
-import java.util.*
 
 /**
  * @author <a href="mailto:izebit@gmail.com">Artem Konovalov</a> <br/>
@@ -32,5 +31,5 @@ interface AccountService<K : Comparable<K>> {
      * @throws AccountServiceException occurs if a transaction couldn't start or accounts don't exist
      */
     @Throws(AccountServiceException::class)
-    fun transfer(from: K, to: K, amount: Long): Boolean
+    fun transfer(from: K, to: K, amount: Double): Boolean
 }

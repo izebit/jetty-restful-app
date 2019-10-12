@@ -1,7 +1,8 @@
 package ru.izebit.service
 
-import java.lang.ref.Reference
-import java.util.concurrent.ConcurrentHashMap
+import com.github.benmanes.caffeine.cache.Cache
+import com.github.benmanes.caffeine.cache.Caffeine
+import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicReference
 
 /**
@@ -9,30 +10,39 @@ import java.util.concurrent.atomic.AtomicReference
  * Date: 11.10.2019
  */
 class TransactionService<K : Comparable<K>> constructor(threadCount: Int) {
-    private val locks = ConcurrentHashMap<K, String>(threadCount)
+    private val locks: Cache<K, AtomicReference<String>> = Caffeine.newBuilder()
+        .expireAfterAccess(1, TimeUnit.HOURS)
+        .weakValues()
+        .build()
 
     private fun <T : Comparable<T>> max(a: T, b: T): T = if (a > b) a else b
     private fun <T : Comparable<T>> min(a: T, b: T): T = if (a < b) a else b
 
-    fun <T> startTransaction(first: K, second: K, operation: () -> T): T {
+    fun <T> transaction(first: K, second: K, operation: () -> T): T {
+        var firstLock: AtomicReference<String>? = null
+        var secondLock: AtomicReference<String>? = null
         try {
             val threadName = Thread.currentThread().name!!;
-            lock(min(first, second), threadName)
-            lock(max(first, second), threadName)
+            firstLock = lock(min(first, second), threadName)
+            secondLock = lock(max(first, second), threadName)
 
             return operation.invoke()
         } finally {
-            locks.remove(first)
-            locks.remove(second)
+            firstLock?.set(null)
+            secondLock?.set(null)
         }
     }
 
 
-    private fun lock(key: K, value: String) {
+    private fun lock(key: K, value: String): AtomicReference<String> {
         val time = System.currentTimeMillis()
-        while (!Thread.currentThread().isInterrupted && locks.putIfAbsent(key, value) != null) {
-            if (System.currentTimeMillis() - time > 100)
-                throw IllegalAccessException("can't start a transaction")
+        val lock = locks.get(key, { _ -> AtomicReference() })!!
+        while (!Thread.currentThread().isInterrupted && !lock.compareAndSet(null, value)) {
+            val diff = System.currentTimeMillis() - time
+            if (diff > 100)
+                throw IllegalAccessException("can't start a transaction. locking took more than $diff ms")
         }
+
+        return lock
     }
 }

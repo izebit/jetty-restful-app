@@ -6,5 +6,5 @@ package ru.izebit.data
  */
 data class Account<K>(
     val id: K,
-    var money: Long
+    var money: Double
 )

@@ -1,12 +1,8 @@
 package ru.izebit.service
 
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertAll
 import ru.izebit.data.Account
 import java.util.concurrent.ForkJoinPool
-import java.util.concurrent.atomic.AtomicInteger
 import java.util.stream.IntStream
 
 /**
@@ -21,25 +17,26 @@ class TransactionServiceTest {
     fun testStartTransaction() {
         val transactionService = TransactionService<Int>(ForkJoinPool.getCommonPoolParallelism())
 
-        val firstAccount = Account(0, 101)
-        val secondAccount = Account(1, 102)
+        val firstAccount = Account(0, 101.0)
+        val secondAccount = Account(1, 102.0)
         val accounts = listOf(firstAccount, secondAccount)
         val amount = 100L;
 
-        val result = IntStream.range(0, 100)
+        val count = 10_000
+        val result = IntStream.range(0, count)
             .parallel()
             .map { i ->
                 val first = accounts[i % 2]
                 val second = accounts[(i + 1) % 2]
-                transactionService.startTransaction(first.id, second.id) {
+                transactionService.transaction(first.id, second.id) {
                     first.money -= amount
                     second.money += amount
                     1
                 }
             }.sum()
 
-        assert(result == 100)
-        assert(firstAccount.money == 101L) { firstAccount.toString() }
-        assert(secondAccount.money == 102L) { secondAccount.toString() }
+        assert(result == count)
+        assert(firstAccount.money == 101.0) { firstAccount.toString() }
+        assert(secondAccount.money == 102.0) { secondAccount.toString() }
     }
 }

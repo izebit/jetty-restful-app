@@ -1,11 +1,10 @@
 package ru.izebit.presentation
 
+import ru.izebit.presentation.HttpUtils.of
+import ru.izebit.service.AccountService
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
-import org.eclipse.jetty.servlet.ServletHandler
-import ru.izebit.data.Account
-import ru.izebit.service.AccountService
 import javax.servlet.http.HttpServletResponse.*
 
 /**
@@ -16,7 +15,7 @@ class GetAccountServlet constructor(private val accountService: AccountService<I
 
     /**
      * servlet for handling request to get information about accounts
-     * the endpoint has an url: {@code /account/{id}}
+     * the endpoint has an url: {@code /accounts/{id}}
      * where {id} is an account id
      */
     override fun doGet(request: HttpServletRequest, response: HttpServletResponse) {
@@ -46,12 +45,6 @@ class GetAccountServlet constructor(private val accountService: AccountService<I
                     }
                 }""", SC_OK)
         }
-    }
-
-    private fun HttpServletResponse.of(body: String, statusCode: Int) {
-        this.status = statusCode
-        this.writer.println(body.trimIndent())
-        this.contentType = "application/json; charset=UTF-8";
     }
 }
 
