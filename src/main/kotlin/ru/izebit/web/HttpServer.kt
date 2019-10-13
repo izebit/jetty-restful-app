@@ -7,6 +7,7 @@ import org.eclipse.jetty.servlet.ServletHandler
 import org.eclipse.jetty.servlet.ServletHolder
 import org.eclipse.jetty.util.thread.QueuedThreadPool
 import ru.izebit.service.AccountService
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -15,16 +16,14 @@ import ru.izebit.service.AccountService
  */
 
 class HttpServer constructor(
-    maxThreads: Int = 100,
-    minThreads: Int = 10,
-    idleTimeout: Int = 120,
-    port: Int = 8090,
+    maxThreads: Int = 10,
+    port: Int = 8080,
     accountService: AccountService<Int>
 ) {
     private val server: Server
 
     init {
-        val threadPool = QueuedThreadPool(maxThreads, minThreads, idleTimeout)
+        val threadPool = QueuedThreadPool(maxThreads, (maxThreads / 100) * 10, TimeUnit.MINUTES.toMillis(1).toInt())
 
         val server = Server(threadPool)
         val connector = ServerConnector(server)
