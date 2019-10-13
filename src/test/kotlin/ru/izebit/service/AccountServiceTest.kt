@@ -21,7 +21,7 @@ class AccountServiceTest {
 
 
         val amount = 90.0
-        val result = accountService.transfer(firstAccount.id, secondAccount.id, amount)
+        val result = accountService.transfer(Transaction(firstAccount.id, secondAccount.id, amount))
         assert(result)
         assert(accountService.get(firstAccount.id)?.money == firstAccount.money - amount)
         assert(accountService.get(secondAccount.id)?.money == secondAccount.money + amount)
@@ -38,7 +38,7 @@ class AccountServiceTest {
 
         val amount = 101.0
         assertThrows<AccountServiceException> {
-            accountService.transfer(firstAccount.id, secondAccount.id, amount)
+            accountService.transfer(Transaction(firstAccount.id, secondAccount.id, amount))
         }
     }
 
@@ -50,7 +50,7 @@ class AccountServiceTest {
 
 
         val amount = 101.0
-        val result = accountService.transfer(account.id, account.id, amount)
+        val result = accountService.transfer(Transaction(account.id, account.id, amount))
         assert(result)
         assert(accountService.get(account.id)?.money == account.money)
     }
@@ -64,7 +64,8 @@ class AccountServiceTest {
         accountService.save(secondAccount.copy())
 
 
-        val result = accountService.transfer(firstAccount.id, secondAccount.id, 0.0)
+
+        val result = accountService.transfer(Transaction(firstAccount.id, secondAccount.id, 0.0))
         assert(result)
         assert(accountService.get(firstAccount.id)?.money == firstAccount.money)
         assert(accountService.get(secondAccount.id)?.money == secondAccount.money)

@@ -5,6 +5,7 @@ import com.beust.klaxon.KlaxonException
 import ru.izebit.data.Account
 import ru.izebit.service.AccountService
 import ru.izebit.service.AccountServiceException
+import ru.izebit.service.Transaction
 import ru.izebit.web.HttpUtils.of
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
@@ -71,7 +72,7 @@ class AccountsServlet constructor(private val accountService: AccountService<Int
      */
     override fun doPut(request: HttpServletRequest, response: HttpServletResponse) {
         val transaction = try {
-            Klaxon().parse<Transaction>(request.inputStream)
+            Klaxon().parse<Transaction<Int>>(request.inputStream)
         } catch (ex: KlaxonException) {
             null
         }
@@ -84,7 +85,7 @@ class AccountsServlet constructor(private val accountService: AccountService<Int
             )
         else
             try {
-                accountService.transfer(transaction.from, transaction.to, transaction.amount)
+                accountService.transfer(transaction)
                 response.of(
                     """{
                     "status":"success",

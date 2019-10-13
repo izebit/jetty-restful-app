@@ -24,12 +24,10 @@ interface AccountService<K : Comparable<K>> {
 
     /**
      * transfers money from an account to another one
-     * @param from - account id, which money will be withdrawn from
-     * @param to - account id, which money will come to
-     * @param amount - amount of money, it can be only positive
+     * @param transaction contains information about accounts and amount of money
      * @return true if an operation is successful, otherwise false
      * @throws AccountServiceException occurs if a transaction couldn't start or accounts don't exist
      */
     @Throws(AccountServiceException::class)
-    fun transfer(from: K, to: K, amount: Double): Boolean
+    fun transfer(transaction: Transaction<K>): Boolean
 }
