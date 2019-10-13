@@ -15,18 +15,15 @@ import ru.izebit.service.AccountService
  */
 
 class HttpServer constructor(
-    private val maxThreads: Int = 100,
-    private val minThreads: Int = 10,
-    private val idleTimeout: Int = 120,
-    private val port:Int = 8090,
-    private val accountService: AccountService<Int>
+    maxThreads: Int = 100,
+    minThreads: Int = 10,
+    idleTimeout: Int = 120,
+    port: Int = 8090,
+    accountService: AccountService<Int>
 ) {
+    private val server: Server
 
-    private var server: Server? = null
-
-    @Throws(Exception::class)
-    fun start() {
-
+    init {
         val threadPool = QueuedThreadPool(maxThreads, minThreads, idleTimeout)
 
         val server = Server(threadPool)
@@ -38,23 +35,23 @@ class HttpServer constructor(
         server.handler = servletHandler
 
         servletHandler.addServletWithMapping(
-            ServletHolder("get_account", GetAccountServlet(accountService)),
-            "/accounts"
+            ServletHolder("account_servlet", AccountServlet(accountService)),
+            "/accounts/*"
         )
         servletHandler.addServletWithMapping(
-            ServletHolder("create_account", CreateAccountServlet(accountService)),
-            "/accounts"
-        )
-        servletHandler.addServletWithMapping(
-            ServletHolder("transfer", TransferMoneyServlet(accountService)),
+            ServletHolder("accounts_servlet", AccountsServlet(accountService)),
             "/accounts"
         )
 
-        server.start()
         this.server = server
     }
 
+    @Throws(Exception::class)
+    fun start() {
+        server.start()
+    }
+
     fun stop() {
-        server?.stop()
+        server.stop()
     }
 }

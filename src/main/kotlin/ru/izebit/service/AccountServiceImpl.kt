@@ -13,15 +13,15 @@ class AccountServiceImpl<K : Comparable<K>> constructor(
 ) : AccountService<K> {
 
     override fun transfer(from: K, to: K, amount: Double): Boolean {
-        if (amount == 0.0)
+        if (amount == 0.0 || from == to)
             return true;
 
         return transactionService.transaction(from, to, {
-            val sender = get(from) ?: throw AccountServiceException("sender account with id:${from} doesn't exist")
-            val recipient = get(to) ?: throw AccountServiceException("recipient account with id:${to} doesn't exist")
+            val sender = get(from) ?: throw AccountServiceException("A sender account with id:${from} doesn't exist")
+            val recipient = get(to) ?: throw AccountServiceException("A recipient account with id:${to} doesn't exist")
             sender.money -= amount
-            if (sender.money > 0)
-                throw AccountServiceException("account with id: ${sender.id} doesn't have enough money")
+            if (sender.money < 0)
+                throw AccountServiceException("An account with id: ${sender.id} doesn't have enough money")
 
             recipient.money += amount
 

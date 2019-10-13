@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicReference
  * @author <a href="mailto:izebit@gmail.com">Artem Konovalov</a> <br/>
  * Date: 11.10.2019
  */
-class TransactionService<K : Comparable<K>> constructor(threadCount: Int) {
+class TransactionService<K : Comparable<K>> {
     private val locks: Cache<K, AtomicReference<String>> = Caffeine.newBuilder()
         .expireAfterAccess(1, TimeUnit.HOURS)
         .weakValues()

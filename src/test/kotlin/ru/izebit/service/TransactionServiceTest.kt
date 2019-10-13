@@ -2,7 +2,6 @@ package ru.izebit.service
 
 import org.junit.jupiter.api.Test
 import ru.izebit.data.Account
-import java.util.concurrent.ForkJoinPool
 import java.util.stream.IntStream
 
 /**
@@ -15,7 +14,7 @@ class TransactionServiceTest {
 
     @Test
     fun testStartTransaction() {
-        val transactionService = TransactionService<Int>(ForkJoinPool.getCommonPoolParallelism())
+        val transactionService = TransactionService<Int>()
 
         val firstAccount = Account(0, 101.0)
         val secondAccount = Account(1, 102.0)
