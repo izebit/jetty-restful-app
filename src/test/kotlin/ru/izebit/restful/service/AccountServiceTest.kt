@@ -1,9 +1,9 @@
-package ru.izebit.service
+package ru.izebit.restful.service
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import ru.izebit.data.Account
-import ru.izebit.data.InMemoryAccountStore
+import ru.izebit.restful.data.Account
+import ru.izebit.restful.data.InMemoryAccountStore
 
 /**
  * @author <a href="mailto:izebit@gmail.com">Artem Konovalov</a> <br/>

@@ -1,9 +1,9 @@
-package ru.izebit.conf
+package ru.izebit.restful.conf
 
 import dagger.Module
 import dagger.Provides
-import ru.izebit.service.AccountService
-import ru.izebit.web.HttpServer
+import ru.izebit.restful.service.AccountService
+import ru.izebit.restful.web.HttpServer
 import javax.inject.Singleton
 
 /**

@@ -1,7 +1,7 @@
-package ru.izebit.service
+package ru.izebit.restful.service
 
-import ru.izebit.data.Account
-import ru.izebit.data.AccountStore
+import ru.izebit.restful.data.Account
+import ru.izebit.restful.data.AccountStore
 
 /**
  * @author <a href="mailto:izebit@gmail.com">Artem Konovalov</a> <br/>

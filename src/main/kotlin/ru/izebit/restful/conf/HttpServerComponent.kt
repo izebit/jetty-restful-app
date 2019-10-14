@@ -1,8 +1,8 @@
-package ru.izebit.conf
+package ru.izebit.restful.conf
 
 import dagger.Component
-import ru.izebit.cli.ApplicationLauncher
-import ru.izebit.web.HttpServer
+import ru.izebit.restful.cli.ApplicationLauncher
+import ru.izebit.restful.web.HttpServer
 import javax.inject.Singleton
 
 /**

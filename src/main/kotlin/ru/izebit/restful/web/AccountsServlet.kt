@@ -1,12 +1,12 @@
-package ru.izebit.web
+package ru.izebit.restful.web
 
 import com.beust.klaxon.Klaxon
 import com.beust.klaxon.KlaxonException
-import ru.izebit.data.Account
-import ru.izebit.service.AccountService
-import ru.izebit.service.AccountServiceException
-import ru.izebit.service.Transaction
-import ru.izebit.web.HttpUtils.of
+import ru.izebit.restful.data.Account
+import ru.izebit.restful.service.AccountService
+import ru.izebit.restful.service.AccountServiceException
+import ru.izebit.restful.service.Transaction
+import ru.izebit.restful.web.HttpUtils.of
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse

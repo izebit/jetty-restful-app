@@ -1,6 +1,4 @@
-package ru.izebit.data
-
-import java.util.*
+package ru.izebit.restful.data
 
 /**
  * @author <a href="mailto:izebit@gmail.com">Artem Konovalov</a> <br/>

@@ -1,12 +1,12 @@
-package ru.izebit.conf
+package ru.izebit.restful.conf
 
 import dagger.Module
 import dagger.Provides
-import ru.izebit.data.AccountStore
-import ru.izebit.data.InMemoryAccountStore
-import ru.izebit.service.AccountService
-import ru.izebit.service.AccountServiceImpl
-import ru.izebit.service.TransactionService
+import ru.izebit.restful.data.AccountStore
+import ru.izebit.restful.data.InMemoryAccountStore
+import ru.izebit.restful.service.AccountService
+import ru.izebit.restful.service.AccountServiceImpl
+import ru.izebit.restful.service.TransactionService
 import javax.inject.Singleton
 
 

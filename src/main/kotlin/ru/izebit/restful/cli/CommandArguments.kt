@@ -1,4 +1,4 @@
-package ru.izebit.cli
+package ru.izebit.restful.cli
 
 import com.beust.jcommander.IParameterValidator
 import com.beust.jcommander.Parameter

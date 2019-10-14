@@ -1,4 +1,4 @@
-package ru.izebit.web
+package ru.izebit.restful.web
 
 import com.github.kittinunf.fuel.core.Response
 import com.github.kittinunf.fuel.core.extensions.jsonBody
@@ -8,9 +8,9 @@ import com.github.kittinunf.fuel.httpPut
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import ru.izebit.data.InMemoryAccountStore
-import ru.izebit.service.AccountServiceImpl
-import ru.izebit.service.TransactionService
+import ru.izebit.restful.data.InMemoryAccountStore
+import ru.izebit.restful.service.AccountServiceImpl
+import ru.izebit.restful.service.TransactionService
 import java.nio.charset.StandardCharsets.UTF_8
 import java.util.concurrent.ThreadLocalRandom
 
@@ -225,7 +225,7 @@ class AccountServletTest {
 
     @Test
     fun testGetAccountInfo_not_found() {
-        val (_, response, result) = "http://127.0.0.1:$port/accounts/1"
+        val (_, response, _) = "http://127.0.0.1:$port/accounts/1"
             .httpGet()
             .responseString()
         assert(response.statusCode == 404)

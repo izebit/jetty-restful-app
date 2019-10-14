@@ -1,4 +1,4 @@
-package ru.izebit.service
+package ru.izebit.restful.service
 
 import com.github.benmanes.caffeine.cache.Cache
 import com.github.benmanes.caffeine.cache.Caffeine
@@ -19,6 +19,9 @@ class TransactionService<K : Comparable<K>> {
     private fun <T : Comparable<T>> min(a: T, b: T): T = if (a < b) a else b
 
     fun <T> transaction(first: K, second: K, operation: () -> T): T {
+        if (first == second)
+            throw AccountServiceException("Can't start transaction with the same ids")
+
         var firstLock: AtomicReference<String>? = null
         var secondLock: AtomicReference<String>? = null
         try {

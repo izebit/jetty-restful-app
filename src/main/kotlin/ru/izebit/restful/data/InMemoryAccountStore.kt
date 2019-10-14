@@ -1,6 +1,5 @@
-package ru.izebit.data
+package ru.izebit.restful.data
 
-import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
 /**

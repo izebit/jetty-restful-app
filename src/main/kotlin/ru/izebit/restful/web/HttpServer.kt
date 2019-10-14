@@ -1,4 +1,4 @@
-package ru.izebit.web
+package ru.izebit.restful.web
 
 import org.eclipse.jetty.server.Connector
 import org.eclipse.jetty.server.Server
@@ -6,7 +6,7 @@ import org.eclipse.jetty.server.ServerConnector
 import org.eclipse.jetty.servlet.ServletHandler
 import org.eclipse.jetty.servlet.ServletHolder
 import org.eclipse.jetty.util.thread.QueuedThreadPool
-import ru.izebit.service.AccountService
+import ru.izebit.restful.service.AccountService
 import java.util.concurrent.TimeUnit
 import kotlin.math.max
 

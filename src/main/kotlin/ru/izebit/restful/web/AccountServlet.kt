@@ -1,7 +1,7 @@
-package ru.izebit.web
+package ru.izebit.restful.web
 
-import ru.izebit.service.AccountService
-import ru.izebit.web.HttpUtils.of
+import ru.izebit.restful.service.AccountService
+import ru.izebit.restful.web.HttpUtils.of
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
