@@ -1,6 +1,9 @@
 package ru.izebit.cli
 
 import com.beust.jcommander.JCommander
+import ru.izebit.conf.DaggerHttpServerComponent
+import ru.izebit.conf.HttpServerComponent
+import ru.izebit.conf.WebModule
 
 /**
  * @author <a href="mailto:izebit@gmail.com">Artem Konovalov</a> <br/>
@@ -8,12 +11,27 @@ import com.beust.jcommander.JCommander
  */
 
 fun main(args: Array<String>) {
-    val arguments = CommandArguments()
-    val argv = arrayOf("--threads", "2", "--port", "8080")
-    JCommander.newBuilder()
-        .addObject(arguments)
-        .build()
-        .parse(*argv)
+    ApplicationLauncher().main(args)
+}
 
-    println()
+class ApplicationLauncher {
+    fun main(args: Array<String>) {
+        val arguments = CommandArguments()
+        JCommander.newBuilder()
+            .addObject(arguments)
+            .build()
+            .parse(*args)
+
+        val httpServerComponent: HttpServerComponent = DaggerHttpServerComponent.builder()
+            .webModule(WebModule(arguments.threads, arguments.port))
+            .build()
+        val httpServer = httpServerComponent.createHttpServer()
+
+        Runtime.getRuntime().addShutdownHook(Thread {
+            httpServer.stop()
+        })
+
+        httpServer.start()
+        httpServer.join()
+    }
 }

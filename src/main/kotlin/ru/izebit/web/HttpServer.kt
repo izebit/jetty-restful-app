@@ -8,6 +8,7 @@ import org.eclipse.jetty.servlet.ServletHolder
 import org.eclipse.jetty.util.thread.QueuedThreadPool
 import ru.izebit.service.AccountService
 import java.util.concurrent.TimeUnit
+import kotlin.math.max
 
 
 /**
@@ -23,7 +24,7 @@ class HttpServer constructor(
     private val server: Server
 
     init {
-        val threadPool = QueuedThreadPool(maxThreads, (maxThreads / 100) * 10, TimeUnit.MINUTES.toMillis(1).toInt())
+        val threadPool = QueuedThreadPool(maxThreads, max((maxThreads / 100) * 10, 1), TimeUnit.MINUTES.toMillis(1).toInt())
 
         val server = Server(threadPool)
         val connector = ServerConnector(server)
@@ -48,6 +49,10 @@ class HttpServer constructor(
     @Throws(Exception::class)
     fun start() {
         server.start()
+    }
+
+    fun join() {
+        server.join()
     }
 
     fun stop() {
