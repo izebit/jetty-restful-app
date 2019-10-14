@@ -16,5 +16,5 @@ data class Transaction<K : Comparable<K>>(
     /**
      *  amount of money, it can be only positive
      */
-    val amount: Double
+    val money: Double
 )

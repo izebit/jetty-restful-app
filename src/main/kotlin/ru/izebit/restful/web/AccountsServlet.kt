@@ -66,7 +66,7 @@ class AccountsServlet constructor(private val accountService: AccountService<Int
      *      {
      *          "from": 0,
      *          "to": 1,
-     *          "amount": 10
+     *          "money": 10
      *      }
      * }
      */
@@ -92,7 +92,7 @@ class AccountsServlet constructor(private val accountService: AccountService<Int
                     "data":{
                         "from": ${transaction.from},
                         "to": ${transaction.to},
-                        "money": ${transaction.amount}
+                        "money": ${transaction.money}
                     }
                 }""", SC_OK
                 )

@@ -27,7 +27,7 @@ class ApplicationLauncher {
             })
 
             httpServer.start()
-            println("\u001B[32m" + "Application has been started" + "\u001B[0m")
+            println("\u001B[32m" + "Application has been started 🚀" + "\u001B[0m")
             httpServer.join()
         }
     }

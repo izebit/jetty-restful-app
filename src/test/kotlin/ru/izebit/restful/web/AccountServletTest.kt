@@ -42,7 +42,7 @@ class AccountServletTest {
                 {
                     "from": 1,
                     "to": 2,
-                    "amount": 101.0
+                    "money": 101.0
                 }
             """, UTF_8
             )
@@ -72,7 +72,7 @@ class AccountServletTest {
                 {
                     "from": 1,
                     "to": 2,
-                    "amount": 20.0
+                    "money": 20.0
                 }
             """, UTF_8
             )
@@ -103,7 +103,7 @@ class AccountServletTest {
                     "status": "ok",
                     "data":{
                         "id": 1,
-                        "amount": 80.0
+                        "money": 80.0
                     }
                 }""", getFirstAccountInfoResponseBody
         )
@@ -119,7 +119,7 @@ class AccountServletTest {
                     "status": "ok",
                     "data":{
                         "id": 2,
-                        "amount": 120.0
+                        "money": 120.0
                     }
                 }""", getSecondAccountResponseBody
         )
@@ -134,7 +134,7 @@ class AccountServletTest {
                 {
                     "from": 10,
                     "to": my_account_id,
-                    "amount: 10.0
+                    "money: 10.0
                 }
             """, UTF_8
             )
@@ -198,7 +198,7 @@ class AccountServletTest {
                     "status": "ok",
                     "data":{
                         "id": $accountId,
-                        "amount": $money
+                        "money": $money
                     }
                 }""", getAccountInfoResponseBody
         )

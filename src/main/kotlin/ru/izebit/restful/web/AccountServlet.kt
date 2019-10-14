@@ -43,7 +43,7 @@ class AccountServlet constructor(private val accountService: AccountService<Int>
                     "status": "ok",
                     "data":{
                         "id": ${account.id},
-                        "amount": ${account.money}
+                        "money": ${account.money}
                     }
                 }""", SC_OK
                 )

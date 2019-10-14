@@ -20,11 +20,11 @@ class AccountServiceTest {
         accountService.save(secondAccount.copy())
 
 
-        val amount = 90.0
-        val result = accountService.transfer(Transaction(firstAccount.id, secondAccount.id, amount))
+        val money = 90.0
+        val result = accountService.transfer(Transaction(firstAccount.id, secondAccount.id, money))
         assert(result)
-        assert(accountService.get(firstAccount.id)?.money == firstAccount.money - amount)
-        assert(accountService.get(secondAccount.id)?.money == secondAccount.money + amount)
+        assert(accountService.get(firstAccount.id)?.money == firstAccount.money - money)
+        assert(accountService.get(secondAccount.id)?.money == secondAccount.money + money)
     }
 
     @Test
@@ -36,9 +36,9 @@ class AccountServiceTest {
         accountService.save(secondAccount.copy())
 
 
-        val amount = 101.0
+        val money = 101.0
         assertThrows<AccountServiceException> {
-            accountService.transfer(Transaction(firstAccount.id, secondAccount.id, amount))
+            accountService.transfer(Transaction(firstAccount.id, secondAccount.id, money))
         }
     }
 
@@ -49,14 +49,14 @@ class AccountServiceTest {
         accountService.save(account.copy())
 
 
-        val amount = 101.0
-        val result = accountService.transfer(Transaction(account.id, account.id, amount))
+        val money = 101.0
+        val result = accountService.transfer(Transaction(account.id, account.id, money))
         assert(result)
         assert(accountService.get(account.id)?.money == account.money)
     }
 
     @Test
-    fun testTransfer_amount_is_zero() {
+    fun testTransfer_money_is_zero() {
         val accountService = AccountServiceImpl<Int>(InMemoryAccountStore(), TransactionService());
         val firstAccount = Account(1, 100.0)
         val secondAccount = Account(2, 200.0)

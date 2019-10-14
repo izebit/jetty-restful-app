@@ -19,7 +19,7 @@ class TransactionServiceTest {
         val firstAccount = Account(0, 101.0)
         val secondAccount = Account(1, 102.0)
         val accounts = listOf(firstAccount, secondAccount)
-        val amount = 100L;
+        val money = 100L;
 
         val count = 10_000
         val result = IntStream.range(0, count)
@@ -28,8 +28,8 @@ class TransactionServiceTest {
                 val first = accounts[i % 2]
                 val second = accounts[(i + 1) % 2]
                 transactionService.transaction(first.id, second.id) {
-                    first.money -= amount
-                    second.money += amount
+                    first.money -= money
+                    second.money += money
                     1
                 }
             }.sum()
