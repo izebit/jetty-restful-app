@@ -4,7 +4,7 @@
 
 ```sh
 ./gradlew jar
-cd /build/libs
+cd build/libs
 java -jar demo-restful-app-1.0-SNAPSHOT.jar --port 8081 --threads 10
 ``` 
 please take notice of the fact that to compile source code and run the application your should have **jdk 8** installed on your computer 
